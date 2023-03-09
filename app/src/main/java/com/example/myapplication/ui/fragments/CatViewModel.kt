@@ -9,7 +9,6 @@ class CatViewModel: ViewModel() {
 
     fun getListOfCatHTP(): ArrayList<CatModel> {
 
-        catModelList.clear()
         catModelList.add(
             CatModel(
                 "https://http.cat/100",
