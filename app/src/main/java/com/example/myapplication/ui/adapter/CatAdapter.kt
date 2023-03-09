@@ -7,10 +7,10 @@ import com.example.myapplication.databinding.ItemBinding
 import com.example.myapplication.model.CatModel
 import com.example.myapplication.setImage
 
-class CatAdapter(private val listCat: MutableList<CatModel>, val onItemClick:(modelCat: CatModel) ->Unit)
+class CatAdapter( private val listCat: MutableList<CatModel>, val onItemClick:(modelCat: CatModel) ->Unit)
     : RecyclerView.Adapter<CatAdapter.AdapterViewHolder>() {
 
-    inner class AdapterViewHolder( var binding: ItemBinding)
+    inner class AdapterViewHolder(private var binding: ItemBinding)
         :RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener{
@@ -33,5 +33,4 @@ class CatAdapter(private val listCat: MutableList<CatModel>, val onItemClick:(mo
     }
 
     override fun getItemCount(): Int = listCat.size
-
 }

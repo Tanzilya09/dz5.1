@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentFirstBinding
 import com.example.myapplication.model.CatModel
 import com.example.myapplication.ui.adapter.CatAdapter
-import com.example.myapplication.ui.viewModel.CatViewModel
 
 class FirstFragment : Fragment() {
 
@@ -31,31 +32,29 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[CatViewModel::class.java]
-        setUpListeners()
-        clear()
-        initialization()
+        initialize()
+        setUpList()
     }
 
-    private fun setUpListeners() {
-        binding.btn.setOnClickListener{
-            binding.btn.isInvisible = true
-            binding.rvCat.isInvisible = false
-        }
-    }
-
-    private fun clear() {
-        listCat.clear()
-    }
-
-    private fun initialization() {
-        viewModel?.let { listCat.addAll(it.getListOfCatHTP())}
+    private fun initialize() {
+        viewModel?.let { listCat.addAll(it.getListOfCatHTP()) }
         binding.rvCat.adapter = adapterCat
     }
 
-    private fun onItemClick(modelCat:CatModel) {
-        findNavController().navigate(FirstFragmentDirections.actionFirstFragmentToDetailFragment(
-            modelCat.image,
-            modelCat.name)
-        )
+    private fun setUpList() {
+        binding.btn.setOnClickListener {
+            binding.rvCat.isVisible = true
+            binding.btn.isVisible = false
+        }
     }
+
+    private fun onItemClick(catModel: CatModel) {
+        val action: NavDirections =
+            FirstFragmentDirections.actionFirstFragmentToDetailFragment(
+                catModel.name,
+                catModel.image
+            )
+        findNavController().navigate(action)
+    }
+
 }
