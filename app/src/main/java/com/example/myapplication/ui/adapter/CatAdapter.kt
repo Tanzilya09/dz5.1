@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,8 +8,14 @@ import com.example.myapplication.databinding.ItemBinding
 import com.example.myapplication.model.CatModel
 import com.example.myapplication.setImage
 
-class CatAdapter( private val listCat: MutableList<CatModel>, val onItemClick:(modelCat: CatModel) ->Unit)
+class CatAdapter(private var listCat: MutableList<CatModel>, val onItemClick:(modelCat: CatModel) ->Unit)
     : RecyclerView.Adapter<CatAdapter.AdapterViewHolder>() {
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun observes(list: MutableList<CatModel>){
+        this.listCat = list
+        notifyDataSetChanged()
+    }
 
     inner class AdapterViewHolder(private var binding: ItemBinding)
         :RecyclerView.ViewHolder(binding.root) {
